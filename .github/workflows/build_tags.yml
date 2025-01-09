@@ -10,7 +10,7 @@ on:
 jobs:
   docker_buildx_debian:
     runs-on: ubuntu-latest
-    timeout-minutes: 100
+    timeout-minutes: 210
     steps:
       - name: Run Docker on tmpfs
         uses: JonasAlfredsson/docker-on-tmpfs@v1.0.1
@@ -30,7 +30,7 @@ jobs:
         run: bash .github/version_extractor.sh ${GITHUB_REF} >> $GITHUB_ENV
 
       - name: Build and push all Debian images
-        uses: docker/build-push-action@v5.0.0
+        uses: docker/build-push-action@v6.11.0
         with:
           context: ./src
           file: ./src/Dockerfile
@@ -70,7 +70,7 @@ jobs:
         run: bash .github/version_extractor.sh ${GITHUB_REF} >> $GITHUB_ENV
 
       - name: Build and push all Alpine images
-        uses: docker/build-push-action@v5.0.0
+        uses: docker/build-push-action@v6.11.0
         with:
           context: ./src
           file: ./src/Dockerfile-alpine

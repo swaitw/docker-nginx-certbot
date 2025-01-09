@@ -1,5 +1,36 @@
 # Changelog
 
+### 5.4.0
+- Added hetzner DNS authenticator.
+  - PR by [@protos-gunzinger][54]
+
+### 5.3.0
+- Added DuckDNS authenticator.
+  - PR by [@emulatorchen][51]
+- Removed deprecated [cloudxns][52] authenticator.
+- Changed from [LegacyKeyValueFormat][53] to the recommended format for `ENV` definitions.
+
+### 5.2.1
+- Update certbot to v2.11.0.
+
+### 5.2.0
+- Forward the `SIGUSR1` signal to Nginx to tell it to reopen log files.
+  - PR by [@fredrikekre][50]
+
+### 5.1.1
+- Update certbot to version 2.10.0
+
+### 5.1.0
+- Add ability to change validity time of the local CA.
+  - This variable is not mentioned in the main README since it should not be
+    used without reading the relevant advanced documentation.
+
+### 5.0.1
+- Lock certbot version via a `requirements.txt` file.
+  - Updates to the certbot version will now bump patch version of this repo.
+- Added Bunny DNS to available authenticators.
+  - PR by [@chreniuc][49]
+
 ### 5.0.0
 - We now run `nginx -t` before reloading Nginx. This will hopefully provide better info on
   config errors without crashing the container.
@@ -402,3 +433,9 @@
 [46]: https://github.com/JonasAlfredsson/bash_fail-to-wait
 [47]: https://github.com/JonasAlfredsson/docker-nginx-certbot/pull/168
 [48]: https://github.com/JonasAlfredsson/docker-nginx-certbot/pull/207
+[49]: https://github.com/JonasAlfredsson/docker-nginx-certbot/pull/226
+[50]: https://github.com/JonasAlfredsson/docker-nginx-certbot/commit/d3c20ff199301022ea0dc450bf91a23a51838871
+[51]: https://github.com/JonasAlfredsson/docker-nginx-certbot/pull/281
+[52]: https://github.com/JonasAlfredsson/docker-nginx-certbot/commit/fb06d2761942269d73a0630d4b0312b007027dcc
+[53]: https://docs.docker.com/reference/build-checks/legacy-key-value-format/
+[54]: https://github.com/JonasAlfredsson/docker-nginx-certbot/pull/284

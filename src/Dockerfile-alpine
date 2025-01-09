@@ -1,9 +1,8 @@
-FROM nginx:1.25.3-alpine
+FROM nginx:1.27.3-alpine
 LABEL maintainer="Jonas Alfredsson <jonas.alfredsson@protonmail.com>"
 
-ENV CERTBOT_DNS_AUTHENTICATORS \
+ENV CERTBOT_DNS_AUTHENTICATORS="\
     cloudflare \
-    cloudxns \
     digitalocean \
     dnsimple \
     dnsmadeeasy \
@@ -16,14 +15,26 @@ ENV CERTBOT_DNS_AUTHENTICATORS \
     rfc2136 \
     route53 \
     sakuracloud \
-    ionos
+    ionos \
+    bunny \
+    duckdns \
+    hetzner \
+    "
+
+# Needed in order to install Python packages via PIP after PEP 668 was
+# introduced, but I believe this is safe since we are in a container without
+# any real need to cater to other programs/environments.
+ARG PIP_BREAK_SYSTEM_PACKAGES=1
+
+# Through this we gain the ability to handle certbot upgrades through
+# dependabot pull requests.
+COPY requirements.txt /requirements.txt
 
 # Do a single run command to make the intermediary containers smaller.
 RUN set -ex && \
 # Install packages necessary during the build phase (for all architectures).
     apk add --no-cache \
         bash \
-        cargo \
         curl \
         findutils \
         libffi \
@@ -39,20 +50,17 @@ RUN set -ex && \
 # Install the latest version of PIP, Setuptools and Wheel.
     curl -L 'https://bootstrap.pypa.io/get-pip.py' | python3 && \
 # Install certbot.
-    pip3 install -U cffi certbot \
-# And the supported extra authenticators
-        $(echo $CERTBOT_DNS_AUTHENTICATORS | sed 's/\(^\| \)/\1certbot-dns-/g') \
-    && \
+    pip3 install -r /requirements.txt && \
+# And the supported extra authenticators.
+    pip3 install $(echo $CERTBOT_DNS_AUTHENTICATORS | sed 's/\(^\| \)/\1certbot-dns-/g') && \
 # Remove everything that is no longer necessary.
     apk del \
-        cargo \
         curl \
         libffi-dev \
         libressl-dev \
         python3-dev \
     && \
     rm -rf /root/.cache && \
-    rm -rf /root/.cargo && \
 # Create new directories and set correct permissions.
     mkdir -p /var/www/letsencrypt && \
     mkdir -p /etc/nginx/user_conf.d && \

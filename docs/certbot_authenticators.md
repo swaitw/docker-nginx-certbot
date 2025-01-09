@@ -23,7 +23,6 @@ You can find information about how to configure them by following those links
 for the supported authenticators:
 
  - [dns-cloudflare][6]
- - [dns-cloudxns][7]
  - [dns-digitalocean][8]
  - [dns-dnsimple][9]
  - [dns-dnsmadeeasy][10]
@@ -37,6 +36,9 @@ for the supported authenticators:
  - [dns-route53][18]
  - [dns-sakuracloud][19]
  - [dns-ionos][20]
+ - [dns-bunny][21]
+ - [dns-duckdns][22]
+ - [hetzner][23]
 
 You will need to setup the authenticator file at
 `/etc/letsencrypt/<authenticator provider>.ini`, so for e.g. Cloudflare you
@@ -119,7 +121,6 @@ authenticators.
 [4]: https://eff-certbot.readthedocs.io/en/stable/using.html#dns-plugins
 [5]: https://letsencrypt.org/docs/challenge-types/#dns-01-challenge
 [6]: https://certbot-dns-cloudflare.readthedocs.io/en/stable/#credentials
-[7]: https://certbot-dns-cloudxns.readthedocs.io/en/stable/#credentials
 [8]: https://certbot-dns-digitalocean.readthedocs.io/en/stable/#credentials
 [9]: https://certbot-dns-dnsimple.readthedocs.io/en/stable/#credentials
 [10]: https://certbot-dns-dnsmadeeasy.readthedocs.io/en/stable/#credentials
@@ -133,3 +134,6 @@ authenticators.
 [18]: https://certbot-dns-route53.readthedocs.io/en/stable/#credentials
 [19]: https://certbot-dns-sakuracloud.readthedocs.io/en/stable/#credentials
 [20]: https://github.com/helgeerbe/certbot-dns-ionos
+[21]: https://github.com/mwt/certbot-dns-bunny
+[22]: https://github.com/infinityofspace/certbot_dns_duckdns?tab=readme-ov-file#usage
+[23]: https://github.com/ctrlaltcoop/certbot-dns-hetzner?tab=readme-ov-file#credentials
